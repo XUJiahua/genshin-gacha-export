@@ -7,7 +7,7 @@ from jinja2 import Template
 
 def main():
     gen_path = os.path.dirname(os.path.realpath(sys.argv[0]))
-    f = open(f"{gen_path}\\gachaData.json", "r", encoding="utf-8")
+    f = open(f"{gen_path}/gachaData.json", "r", encoding="utf-8")
     j = json.load(f)
     f.close()
     j2_templ = Template("""
@@ -100,7 +100,7 @@ def main():
     gen_path = os.path.dirname(os.path.realpath(sys.argv[0]))
 
     gachaLog = {}
-    with open(f"{gen_path}\\gachaData.json", "r", encoding="utf-8") as f:
+    with open(f"{gen_path}/gachaData.json", "r", encoding="utf-8") as f:
         j = json.load(f)
         gachaLog = j["gachaLog"]
 
@@ -221,7 +221,7 @@ def main():
         gachaQueryTypeDict=gachaQueryTypeDict,
         detail=detail,
     )
-    with open(f"{gen_path}\\gachaReport.html", "w", encoding="utf-8") as f:
+    with open(f"{gen_path}/gachaReport.html", "w", encoding="utf-8") as f:
         f.write(str(html))
 
     webbrowser.open_new_tab('gachaReport.html')

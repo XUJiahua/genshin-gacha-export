@@ -38,7 +38,7 @@ def main():
 
     gen_path = os.path.dirname(os.path.realpath(sys.argv[0]))
     uid = gachaData["uid"]
-    localDataFilePath = f"{gen_path}\\gachaData-{uid}.json"
+    localDataFilePath = f"{gen_path}/gachaData-{uid}.json"
 
     if os.path.isfile(localDataFilePath):
         with open(localDataFilePath, "r", encoding="utf-8") as f:
@@ -50,20 +50,20 @@ def main():
     mergeData["gachaType"]=gachaQueryTypeDict
     print("写入JSON", end="...", flush=True)
     # 抽卡报告读取 gachaData.json
-    with open(f"{gen_path}\\gachaData.json", "w", encoding="utf-8") as f:
+    with open(f"{gen_path}/gachaData.json", "w", encoding="utf-8") as f:
         json.dump(mergeData, f, ensure_ascii=False, sort_keys=False, indent=4)
     # 待合并数据 gachaData-{uid}.json
-    with open(f"{gen_path}\\gachaData-{uid}.json", "w", encoding="utf-8") as f:
+    with open(f"{gen_path}/gachaData-{uid}.json", "w", encoding="utf-8") as f:
         json.dump(mergeData, f, ensure_ascii=False, sort_keys=False, indent=4)
     # 备份历史数据防止爆炸 gachaData-{uid}-{t}.json
     t = time.strftime("%Y%m%d%H%M%S", time.localtime())
-    with open(f"{gen_path}\\gachaData-{uid}-{t}.json", "w", encoding="utf-8") as f:
+    with open(f"{gen_path}/gachaData-{uid}-{t}.json", "w", encoding="utf-8") as f:
         json.dump(mergeData, f, ensure_ascii=False, sort_keys=False, indent=4)
     print("OK", flush=True)
 
     if s.getKey("FLAG_AUTO_ARCHIVE"):
         print("自动归档...", flush=True)
-        archive_path = f"{gen_path}\\archive"
+        archive_path = f"{gen_path}/archive"
         if not os.path.exists(archive_path):
             os.mkdir(archive_path)
         files = os.listdir(gen_path)
@@ -73,18 +73,18 @@ def main():
         archive_files = archive_UIGF + archive_json + archive_xlsx
         for file in archive_files:
             try:
-                shutil.move(f"{gen_path}\\{file}", f"{archive_path}\\")
+                shutil.move(f"{gen_path}/{file}", f"{archive_path}/")
                 print(file, flush=True)
             except Exception as e:
                 print(e)
                 try:
-                    os.remove(f"{archive_path}\\{file}")
+                    os.remove(f"{archive_path}/{file}")
                 except:
                     pass
                 
     if s.getKey("FLAG_UIGF_JSON"):
         print("写入UIGF JSON", end="...", flush=True)
-        with open(f"{gen_path}\\UIGF_gachaData-{uid}-{t}.json", "w", encoding="utf-8") as f:
+        with open(f"{gen_path}/UIGF_gachaData-{uid}-{t}.json", "w", encoding="utf-8") as f:
             UIGF_data = UIGF_converter.convert(uid)
             json.dump(UIGF_data, f, ensure_ascii=False, sort_keys=False, indent=4)
         print("OK", flush=True)
@@ -227,7 +227,7 @@ if __name__ == "__main__":
     global url
     url = ""
     gen_path = os.path.dirname(os.path.realpath(sys.argv[0]))
-    s = Config(gen_path + "\\config.json")
+    s = Config(gen_path + "/config.json")
     latest = "https://pd.zwc365.com/seturl/https://raw.githubusercontent.com/sunfkny/genshin-gacha-export/main/version.txt"
     try:
         print("检查更新...",end="", flush=True)
